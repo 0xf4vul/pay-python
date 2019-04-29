@@ -30,7 +30,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-with open('README.rst', 'rb') as fp:
+with open('README.rst', 'r') as fp:
     readme = fp.read()
 
 with open('requirements.txt') as f:
