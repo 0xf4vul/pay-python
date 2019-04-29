@@ -58,8 +58,8 @@ class Pay(object):
         :param kwargs:
         :return:
         """
-        from wx import WxPay
-        from pay_error import PayError
+        from .wx import WxPay
+        from .pay_error import PayError
         if not isinstance(self.pay, WxPay):
             raise PayError('%s have not a valid method'.format(self.pay))
         kwargs = dict(pay_order.data, **kwargs)
@@ -121,8 +121,8 @@ class Pay(object):
         :return:
         """
         kwargs = dict(pay_order.data, **kwargs)
-        from wx import WxPay
-        from pay_error import PayError
+        from .wx import WxPay
+        from .pay_error import PayError
         if not isinstance(self.pay, WxPay):
             raise PayError('%s have not a valid method'.format(self.pay))
         return self.pay.enterprise_pay(**kwargs)

@@ -5,7 +5,12 @@
 
 import string
 import random
-import urllib2
+
+try:
+    from urllib2 import build_opener, HTTPSHandler, Request, HTTPError
+except ImportError:
+    from urllib.request import build_opener, Request, HTTPSHandler
+    from urllib.error import HTTPError
 import hashlib
 import requests
 import time
@@ -22,7 +27,7 @@ class WxPay(object):
     API_BASE_URL = 'https://api.mch.weixin.qq.com'
 
     def __init__(self, config):
-        self.opener = urllib2.build_opener(urllib2.HTTPSHandler())
+        self.opener = build_opener(HTTPSHandler())
         self._appid = str(config['app_id'])
         self._app_notify_url = config['notify_url']
         self._mch_id = config['mch_id']
@@ -74,10 +79,10 @@ class WxPay(object):
         return hashlib.md5(b(s)).hexdigest().upper()
 
     def _fetch(self, url, data):
-        req = urllib2.Request(url, data=dict_to_xml(data))
+        req = Request(url, data=dict_to_xml(data))
         try:
             resp = self.opener.open(req, timeout=20)
-        except urllib2.HTTPError, e:
+        except HTTPError as e:
             resp = e
         re_info = resp.read()
         return self._handle_result(re_info)
