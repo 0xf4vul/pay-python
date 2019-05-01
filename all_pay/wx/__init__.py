@@ -79,7 +79,7 @@ class WxPay(object):
         return hashlib.md5(b(s)).hexdigest().upper()
 
     def _fetch(self, url, data):
-        req = Request(url, data=dict_to_xml(data))
+        req = Request(url, data=dict_to_xml(data).encode('utf8'))
         try:
             resp = self.opener.open(req, timeout=20)
         except HTTPError as e:
@@ -88,7 +88,7 @@ class WxPay(object):
         return self._handle_result(re_info)
 
     def _fetch_with_ssl(self, url, data, api_client_cert_path, api_client_key_path):
-        req = requests.post(url, data=dict_to_xml(data),
+        req = requests.post(url, data=dict_to_xml(data).encode('utf8'),
                             cert=(api_client_cert_path, api_client_key_path))
         return self._handle_result(req.content)
 

@@ -51,5 +51,5 @@ def random_num(length):
 def dict_to_xml(raw):
     s = ""
     for k, v in iteritems(raw):
-        s += '<{0}>{1}</{0}>'.format(k, b(v), k)
+        s += '<{0}>{1}</{0}>'.format(k, v, k)
     return '<xml>{0}</xml>'.format(s)
