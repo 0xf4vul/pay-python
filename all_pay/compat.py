@@ -12,7 +12,7 @@ if str(sys.version[0]) == "3":
     def u(s):
         return s
     def b(s):
-        return s.encode("utf-8")
+        return str(s).encode("utf-8")
 else:
     from urllib import quote_plus
     from urllib2 import urlopen
