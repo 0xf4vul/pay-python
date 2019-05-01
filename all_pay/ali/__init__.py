@@ -150,8 +150,9 @@ class AliPay(object):
         unsigned_items = self._ordered_data(data)
         message = '&'.join(u'{}={}'.format(k, v) for k, v in unsigned_items)
         res = self._verify(message, sign)
-        if res:
-            return data
+        if not res:
+            raise PayValidationError()
+        return data
 
     def trade_wap_pay(self, return_url=None, **kwargs):
         biz_content = {
